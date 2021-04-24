@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import Header from './container/Header/Header'
+import Footer from './container/Footer/Footer'
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -12,15 +14,31 @@ const App = () => {
     setArr(newArr)
   }
 
+  const delItem = i => {
+    const filterdArr = arr.filter((_, index) => index !== i );
+    setArr(filterdArr)
+  }
+
   return (
     <div className="App">
-        <p>Count {count}</p>
+        <Header />
 
-        <button onClick={() => setCount(count + 1)}>Click</button>
+        <div className="App_Container">
+          <p>Count {count}</p>
 
-        <button onClick={addItem}>add item to arr</button>
+          <button onClick={() => setCount(count + 1)}>Click</button>
 
-        {arr.map(item => <p key={item} className={`item name ${item}`}>{item}</p>)}
+          <button onClick={addItem}>add item to arr</button>
+
+          {arr.map((item, i) => (
+            <div className="app_item">
+              <p key={item} className={`item name ${item} `}>{item}</p>
+              <button onClick={() => delItem(i)}>x</button>
+            </div>
+          ))}
+        </div>
+
+        <Footer footerName="footer name test" />  
     </div>
   );
 }
